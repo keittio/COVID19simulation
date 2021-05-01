@@ -19,6 +19,7 @@ class Agent:
 
         #画面端に行ったら跳ね返る
         ##画面はしに行ったときに画面を球体と考えたときの座標に移動する
+        #コメントアウトは画面の端がループするやつ
         if self.x > WINDOW_W:  # 右端
             self.vx = -self.vx
             #self.x = WINDOW_W
@@ -52,7 +53,7 @@ class Agent:
         x, y = int(self.x), int(self.y)
         pygame.draw.circle(screen, (255, 0, 0), (x, y), 5)
 
-    #分離のルール
+    #分離
     def separation(self, r_s):
         tvx = tvy = c = 0
         #自分以外の全エージェントを処理する
@@ -63,14 +64,13 @@ class Agent:
                 tvx -= (a[0].x - self.x) / a[1]
                 tvy -= (a[0].y - self.y) / a[1]
                 c += 1
-
             if c != 0:
                 #単位ベクトルの平均を求める
                 self.vx_s, self.vy_s = tvx / c, tvy / c
             else:
                 self.vx_s, self.vy_s = self.vx, self.vy
 
-    #整列のルール
+    #整列
     def alignment(self, r_a):
         tvx = tvy = c = 0
         for a in self.others:
@@ -79,14 +79,13 @@ class Agent:
                 tvx += a[0].vx
                 tvy += a[0].vy
                 c += 1
-
         if c != 0:
             #速度の平均を求める
             self.vx_a, self.vy_a = tvx / c, tvy / c
         else:
             self.vx_a, self.vy_a = self.vx, self.vy
 
-    #結合のルール
+    #結合
     def cohesion(self, r_c):
         tx = ty = c = 0
         for a in self.others:
@@ -94,7 +93,6 @@ class Agent:
                 tx += a[0].x
                 ty += a[0].y
                 c += 1
-
         if c != 0:
             tx, ty = tx / c, ty / c
             d = math.sqrt((tx - self.x)**2 + (ty - self.y)**2)
@@ -111,7 +109,7 @@ class Agent:
         self.others = tuple([(a, math.sqrt((a.x - self.x)**2 + (a.y - self.y)**2)) for a in agent_list if a!=self])
         if len(self.others) < 1: return
 
-        #3つのルールを適応
+        #3つのアルゴリズムを適応
         self.separation(r_s)
         self.alignment(r_a)
         self.cohesion(r_c)
@@ -210,7 +208,7 @@ for frequency in range(54):
                 a.update(WINDOW_W, WINDOW_H)
                 a.draw(screen)
 
-            #ここら辺に、赤色に一定距離近づいたら、近づいたエージェントの色を変えるようにしたい
+            #ここら辺に、赤色に一定距離近づいたエージェントの色を変えるようにしたい（ほかのところで実装済み）
             #if agent_flag == 1:
                 #agent_list_all.extend(agent_list)
             #agent_list_red.append(agent_list.pop(0))
