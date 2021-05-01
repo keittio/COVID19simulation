@@ -32,6 +32,3 @@ for aaa in range(6):
                     text.write(str(prob) + '\n')
                     text.write(str(rad) + '\n')
 text.close()
-
-#マスク付けると79%感染確立が減る
-#ふつうは70%
