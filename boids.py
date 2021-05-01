@@ -121,7 +121,7 @@ class Agent:
         self.vx, self.vy = 2 * tvx / n, 2 * tvy / n
 
 parameterfile = open("Parameterfile.txt", 'r')
-for frequency in range(54):
+for frequency in range(5400):
     #設定
     tick = 30              #1秒間にループする回数（処理を行う回数
     window_wide = 700
@@ -170,7 +170,7 @@ for frequency in range(54):
     make_text.write(Configuration)
     make_text.close()
 
-    for num_of_time in range(1):
+    for num_of_time in range(100):
 
         random.seed(time.time())
         for a in range(agent_amount):
