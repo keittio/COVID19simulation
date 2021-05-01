@@ -48,7 +48,8 @@ class Agent:
     def draw(self, screen):
         x, y = int(self.x), int(self.y)
         pygame.draw.circle(screen, (0, 255, 0), (x, y), 5)
-
+    
+    # エージェントを小さな赤丸で画面に表示
     def draw_red(self, screen):
         x, y = int(self.x), int(self.y)
         pygame.draw.circle(screen, (255, 0, 0), (x, y), 5)
